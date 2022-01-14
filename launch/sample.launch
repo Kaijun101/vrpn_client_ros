@@ -1,8 +1,11 @@
 <launch>
 
-  <arg name="server" default="localhost"/>
+  <arg name="id" default="" />
+  <arg name="server" default="192.168.31.204" />
+  <arg name="mocap_topic" default="$(arg id)/mavros/mocap/pose" /> 
 
   <node pkg="vrpn_client_ros" type="vrpn_client_node" name="vrpn_client_node" output="screen">
+    <remap from="/vrpn_client_node/braptor/pose" to="$(arg mocap_topic)" />
     <rosparam subst_value="true">
       server: $(arg server)
       port: 3883
@@ -21,5 +24,4 @@
       #- SecondTracker
     </rosparam>
   </node>
-
 </launch>
